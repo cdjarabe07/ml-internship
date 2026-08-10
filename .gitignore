@@ -1,0 +1,33 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Data & modèles (souvent lourds, ne pas versionner) ---
+*/data/*
+!*/data/.gitkeep
+*.csv
+*.parquet
+*.pkl
+!task10_mlops_pipeline/app/*.pkl
+*.pt
+*.h5
+*.onnx
+
+# --- Outputs ---
+*/outputs/*
+!*/outputs/.gitkeep
+
+# --- OS / IDE ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- MLflow ---
+mlruns/

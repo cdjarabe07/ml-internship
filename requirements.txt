@@ -1,0 +1,30 @@
+# --- Base ---
+numpy
+pandas
+matplotlib
+seaborn
+jupyter
+notebook
+
+# --- Level 1 & 2 (ML classique) ---
+scikit-learn
+xgboost
+imbalanced-learn   # SMOTE (Task 4)
+
+# --- Level 3 ---
+librosa            # audio features (Task 6)
+lightgbm           # Sales Forecasting bonus (Task 7)
+
+# --- Industry Level ---
+ultralytics         # YOLOv8 (Task 8)
+opencv-python       # (Task 8)
+torch
+torchvision
+
+# --- Task 10 : MLOps ---
+fastapi
+uvicorn
+pydantic
+mlflow
+streamlit
+python-multipart

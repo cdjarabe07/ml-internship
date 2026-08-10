@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Predictive Maintenance — Démo</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; }
+  label { display: block; margin-top: 12px; font-size: 0.9rem; color: #444; }
+  input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+  button { margin-top: 20px; padding: 10px 18px; background: #1a5f7a; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  button:hover { background: #14495f; }
+  #result { margin-top: 24px; padding: 16px; border-radius: 8px; display: none; }
+  .risk-faible { background: #e6f4ea; color: #1e7b34; }
+  .risk-modéré { background: #fff4e0; color: #92600e; }
+  .risk-élevé { background: #fde8e8; color: #b42318; }
+  .risk-critique { background: #4a0e0e; color: white; }
+  .error { background: #fde8e8; color: #b42318; }
+  hr { margin: 30px 0; border: none; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+  <h1>🔧 Predictive Maintenance — Démo</h1>
+  <p>Renseigne les capteurs d'une machine pour estimer son risque de panne.</p>
+
+  <form id="predict-form">
+    <label>Type de machine
+      <select name="type">
+        <option value="L">L (bas de gamme)</option>
+        <option value="M">M (milieu de gamme)</option>
+        <option value="H">H (haut de gamme)</option>
+      </select>
+    </label>
+    <label>Température de l'air (K)
+      <input type="number" step="0.1" name="air_temperature" value="298.1" required>
+    </label>
+    <label>Température du process (K)
+      <input type="number" step="0.1" name="process_temperature" value="308.6" required>
+    </label>
+    <label>Vitesse de rotation (rpm)
+      <input type="number" step="1" name="rotational_speed" value="1551" required>
+    </label>
+    <label>Couple (Nm)
+      <input type="number" step="0.1" name="torque" value="42.8" required>
+    </label>
+    <label>Usure de l'outil (min)
+      <input type="number" step="1" name="tool_wear" value="0" required>
+    </label>
+    <button type="submit">Prédire</button>
+  </form>
+
+  <div id="result"></div>
+
+  <hr>
+  <p>Ou envoie directement un JSON à <code>POST /predict</code> (voir <a href="/docs">/docs</a> pour la spec complète de l'API).</p>
+
+  <script>
+    const form = document.getElementById("predict-form");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      const payload = {
+        type: data.type,
+        air_temperature: parseFloat(data.air_temperature),
+        process_temperature: parseFloat(data.process_temperature),
+        rotational_speed: parseFloat(data.rotational_speed),
+        torque: parseFloat(data.torque),
+        tool_wear: parseFloat(data.tool_wear),
+      };
+
+      resultDiv.style.display = "block";
+      resultDiv.className = "";
+      resultDiv.textContent = "Calcul en cours...";
+
+      try {
+        const res = await fetch("/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          resultDiv.className = "error";
+          resultDiv.textContent = "Données invalides : " + JSON.stringify(err.detail);
+          return;
+        }
+
+        const json = await res.json();
+        resultDiv.className = "risk-" + json.risk_level;
+        resultDiv.innerHTML = `
+          <strong>${json.failure_predicted ? "⚠️ Panne probable" : "✅ Fonctionnement normal"}</strong><br>
+          Probabilité de panne : ${(json.failure_probability * 100).toFixed(1)}%<br>
+          Niveau de risque : ${json.risk_level}
+        `;
+      } catch (err) {
+        resultDiv.className = "error";
+        resultDiv.textContent = "Erreur réseau : " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
