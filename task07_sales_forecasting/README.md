@@ -1,3 +1,7 @@
+[🇫🇷 Français](#français) | [🇬🇧 English](#english)
+
+## Français
+
 # Task 7 — Sales Forecasting (Level 3)
 
 **Dataset :** Walmart Sales Forecast (Kaggle)
@@ -12,3 +16,20 @@
 ## Bonus
 - Moyennes glissantes + décomposition saisonnière
 - XGBoost/LightGBM avec validation temporelle
+
+## English
+
+# Task 7 — Sales Forecasting (Level 3)
+
+**Dataset:** Walmart Sales Forecast (Kaggle)
+**Objective:** Predict future sales from history.
+**Topics:** Time series forecasting | Regression
+
+## Steps
+1. Temporal features (day, month, offset/lag values)
+2. Regression Models
+3. Plot actual vs predicted values
+
+## Bonuses
+- Rolling averages + seasonal decomposition
+- XGBoost/LightGBM with temporal validation

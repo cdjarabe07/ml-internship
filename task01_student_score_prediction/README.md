@@ -1,3 +1,7 @@
+[🇫🇷 Français](#français) | [🇬🇧 English](#english)
+
+## Français
+
 # Task 1 — Student Score Prediction (Level 1)
 
 **Dataset :** Student Performance Factors (Kaggle)
@@ -13,3 +17,21 @@
 ## Bonus
 - Régression polynomiale (comparer les performances)
 - Tester différentes combinaisons de features (sommeil, participation, etc.)
+
+## English
+
+# Task 1 — Student Score Prediction (Level 1)
+
+**Dataset:** Student Performance Factors (Kaggle)
+**Objective:** Predict exam scores from study hours.
+**Topics:** Regression | Evaluation Metrics
+
+## Steps
+1. Data cleaning + exploratory visualization
+2. Split train/test
+3. Linear regression
+4. Visualization of predictions + evaluation (MAE, RMSE, R²)
+
+## Bonuses
+- Polynomial regression (compare performance)
+- Test different combinations of features (sleep, participation, etc.)

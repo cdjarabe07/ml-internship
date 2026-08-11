@@ -1,3 +1,7 @@
+[🇫🇷 Français](#français) | [🇬🇧 English](#english)
+
+## Français
+
 # Task 6 — Music Genre Classification (Level 3)
 
 **Dataset :** GTZAN (Kaggle)
@@ -12,3 +16,20 @@
 ## Bonus
 - Comparer approche tabulaire vs image
 - Transfer learning sur les spectrogrammes
+
+## English
+
+# Task 6 — Music Genre Classification (Level 3)
+
+**Dataset:** GTZAN (Kaggle)
+**Objective:** Classify songs by genre using audio features.
+**Topics:** Audio data / CNN | Multi-class classification
+
+## Steps
+1. Extraction of features (MFCC) or spectrograms
+2. Multi-class model (tabular or image)
+3. If image: CNN
+
+## Bonuses
+- Compare tabular vs image approach
+- Transfer learning on spectrograms
